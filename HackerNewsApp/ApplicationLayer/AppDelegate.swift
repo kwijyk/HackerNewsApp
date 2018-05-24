@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  HackerNewsApp
 //
-//  Created by Sergio on 5/24/18.
-//  Copyright © 2018 Sergio. All rights reserved.
+//  Created by Serhii Haponov on 5/24/18.
+//  Copyright © 2018 Serhii Haponov. All rights reserved.
 //
 
 import UIKit
