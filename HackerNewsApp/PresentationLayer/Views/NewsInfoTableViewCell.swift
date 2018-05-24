@@ -10,15 +10,17 @@ import UIKit
 
 class NewsInfoTableViewCell: UITableViewCell, NibLoadableView, ReusableView {
 
+    @IBOutlet private weak var titleLabel: UILabel!
+    
+    @IBOutlet private weak var createTimeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func setupCell(title: String, createTime: String) {
+        self.titleLabel.text = title
+        self.createTimeLabel.text = createTime
     }
     
 }

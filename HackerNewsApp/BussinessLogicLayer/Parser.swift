@@ -28,7 +28,7 @@ struct Parser {
         return Result.success(dictionary)
     }
     
-    static func parseNewsInfo(_ result: Result<Any>) -> Result<NewsInfo> {
+    static func parseNewsInfo(_ result: Result<Any>) -> Result<[NewsInfo]> {
         let parsedResult = self.parseResponse(result)
         guard let value = parsedResult.value else {
             let error = parsedResult.error ?? ResponseError.dataMissed
@@ -40,7 +40,7 @@ struct Parser {
         guard let parsedItem = NewsInfo(json: dayInfoJSON) else {
             return Result.failure(ResponseError.invalidFormat(for: NewsInfo.self))
         }
-        return Result.success(parsedItem)
+        return Result.success([parsedItem])
     }
     
 }

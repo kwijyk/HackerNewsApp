@@ -11,8 +11,15 @@ import UIKit
 class PostsListViewController: UIViewController {
 
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
+    private var newsItems: [NewsInfo] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -25,18 +32,27 @@ class PostsListViewController: UIViewController {
         tableView.register(NewsInfoTableViewCell.self)
     }
     
+    // MARK: - Data
+    private func fetchNewsData() {
+        DataManager.instance.fentchNewsPosts(page: 1) { [weak self] news, _ in
+            guard let unwSelf = self else { return }
+            unwSelf.newsItems = news
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension PostsListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return newsItems.count
     }
     
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NewsInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let newsItem = newsItems[indexPath.row]
+        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt.toString())
        return cell
     }
 }
