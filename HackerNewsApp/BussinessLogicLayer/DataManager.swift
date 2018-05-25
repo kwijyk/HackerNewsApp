@@ -21,22 +21,17 @@ final class DataManager {
             case .success(let value):
                 let jsonObj = JSON(value)
                 guard let jsonDictionary = jsonObj.dictionary, let jsonArray = jsonDictionary["hits"]?.array else { return }
-                var categoriesArray = [NewsInfo]()
-                for objCategory in jsonArray {
-                    guard let category = NewsInfo(json: objCategory) else { continue }
-                    categoriesArray.append(category)
+                var newsInfoArray = [NewsInfo]()
+                for objNewsInfo in jsonArray {
+                    guard let category = NewsInfo(json: objNewsInfo) else { continue }
+                    newsInfoArray.append(category)
                 }
                 DispatchQueue.main.async {
-                    completionHandler(categoriesArray)
+                    completionHandler(newsInfoArray)
                 }
             case.failure(let error):
                 print(error)
             }
-            
-//            let parsedResponse = Parser.parseNewsInfo(networkResponse)
-//            DispatchQueue.main.async {
-//                completionHandler(parsedResponse.value!, parsedResponse.error)
-//            }
         }
     }
 }

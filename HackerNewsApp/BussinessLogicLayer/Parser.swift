@@ -41,8 +41,6 @@ struct Parser {
             return Result.failure(ResponseError.invalidFormat(for: NewsInfo.self))
         }
         return Result.success(parsedItem)
-        
-        
     }
     
 }
