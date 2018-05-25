@@ -70,8 +70,8 @@ extension PostsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NewsInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let newsItem = newsItems[indexPath.row]
-        let isSelected = indexPathsForSelectedRows.contains(indexPath)
-        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt.toString(), isSelected: isSelected)
+        let isSelectedRow = indexPathsForSelectedRows.contains(indexPath)
+        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt.toString(), isSelected: isSelectedRow)
         
         if indexPath.row == newsItems.count - 3 {
             fetchNewsData()
@@ -89,6 +89,6 @@ extension PostsListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         indexPathsForSelectedRows.append(indexPath)
         tableView.reloadRows(at: [indexPath], with: .none)
-        return indexPath
+        return nil
     }
 }
