@@ -70,7 +70,7 @@ extension PostsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NewsInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let newsItem = newsItems[indexPath.row]
-        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt)
+        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt.toString())
         
         if indexPath.row == newsItems.count - 3 {
             fetchNewsData()

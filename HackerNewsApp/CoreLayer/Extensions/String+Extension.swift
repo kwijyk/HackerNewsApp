@@ -9,9 +9,10 @@
 import Foundation
 
 extension String {
-    func toDate(format: DateFormat = .dateWithoutTime) -> Date? {
+    func toDate(format: DateFormat = .fullDate) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue
-        return dateFormatter.date(from: self)
+        let date = dateFormatter.date(from: self)
+        return date
     }
 }
