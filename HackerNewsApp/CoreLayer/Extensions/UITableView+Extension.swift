@@ -3,7 +3,7 @@
 //  HackerNewsApp
 //
 //  Created by Serhii Haponov on 5/24/18.
-//  Copyright © 2018 Serhii Gaponov. All rights reserved.
+//  Copyright © 2018 Serhii Haponov. All rights reserved.
 //
 
 import UIKit

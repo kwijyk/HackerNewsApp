@@ -3,7 +3,7 @@
 //  HackerNewsApp
 //
 //  Created by Serhii Haponov on 5/24/18.
-//  Copyright © 2018 Serhii Gaponov. All rights reserved.
+//  Copyright © 2018 Serhii Haponov. All rights reserved.
 //
 
 import Foundation
@@ -28,19 +28,19 @@ struct Parser {
         return Result.success(dictionary)
     }
     
-    static func parseNewsInfo(_ result: Result<Any>) -> Result<[NewsInfo]> {
+    static func parseNewsInfo(_ result: Result<Any>) -> Result<NewsInfo> {
         let parsedResult = self.parseResponse(result)
         guard let value = parsedResult.value else {
             let error = parsedResult.error ?? ResponseError.dataMissed
             return Result.failure(error)
         }
-        guard let dayInfoJSON = value["results"] else {
+        guard let dayInfoJSON = value["hits"] else {
             return Result.failure(ResponseError.dataMissed)
         }
         guard let parsedItem = NewsInfo(json: dayInfoJSON) else {
             return Result.failure(ResponseError.invalidFormat(for: NewsInfo.self))
         }
-        return Result.success([parsedItem])
+        return Result.success(parsedItem)
     }
     
 }

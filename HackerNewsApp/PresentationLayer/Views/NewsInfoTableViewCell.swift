@@ -14,8 +14,15 @@ class NewsInfoTableViewCell: UITableViewCell, NibLoadableView, ReusableView {
     
     @IBOutlet private weak var createTimeLabel: UILabel!
     
+    @IBOutlet weak var selectedCellSwitch: UISwitch!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        selectedCellSwitch.setOn(selected, animated: animated)
     }
 
     func setupCell(title: String, createTime: String) {

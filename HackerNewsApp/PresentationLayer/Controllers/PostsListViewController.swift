@@ -19,24 +19,43 @@ class PostsListViewController: UIViewController {
         }
     }
     
+    private var pageCounter: Int = 1
+    
+    private var indexPathsForSelectedRows: [IndexPath] = [] {
+        didSet {
+            numberOfSelections = String(indexPathsForSelectedRows.count)
+        }
+    }
+    private var numberOfSelections: String = "Number of selections 0" {
+        didSet {
+          title =  "Number of selections \(numberOfSelections)"
+        }
+    }
+    
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = numberOfSelections
         setupTableView()
+        fetchNewsData()
     }
     
     // MARK: - Private methods
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsMultipleSelection = true
         tableView.register(NewsInfoTableViewCell.self)
     }
     
     // MARK: - Data
     private func fetchNewsData() {
-        DataManager.instance.fentchNewsPosts(page: 1) { [weak self] news, _ in
+        DataManager.instance.fentchNewsPosts(page: pageCounter) { [weak self] news in
             guard let unwSelf = self else { return }
-            unwSelf.newsItems = news
+            unwSelf.newsItems.append(contentsOf: news)
+            if !news.isEmpty {
+               unwSelf.pageCounter += 1
+            }
         }
     }
 }
@@ -48,11 +67,25 @@ extension PostsListViewController: UITableViewDelegate, UITableViewDataSource {
         return newsItems.count
     }
     
-  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: NewsInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let newsItem = newsItems[indexPath.row]
-        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt.toString())
+        cell.setupCell(title: newsItem.title, createTime: newsItem.createdAt)
+        
+        if indexPath.row == newsItems.count - 3 {
+            fetchNewsData()
+        }
+        
        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        for (index, selectedIndexPath) in indexPathsForSelectedRows.enumerated() where selectedIndexPath == indexPath {
+            indexPathsForSelectedRows.remove(at: index)
+            tableView.deselectRow(at: indexPath, animated: false)
+            return nil
+        }
+        indexPathsForSelectedRows.append(indexPath)
+        return indexPath
     }
 }
