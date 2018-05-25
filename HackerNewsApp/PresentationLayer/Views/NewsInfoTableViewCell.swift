@@ -11,9 +11,7 @@ import UIKit
 class NewsInfoTableViewCell: UITableViewCell, NibLoadableView, ReusableView {
 
     @IBOutlet private weak var titleLabel: UILabel!
-    
     @IBOutlet private weak var createTimeLabel: UILabel!
-    
     @IBOutlet weak var selectedCellSwitch: UISwitch!
     
     override func awakeFromNib() {
@@ -21,13 +19,10 @@ class NewsInfoTableViewCell: UITableViewCell, NibLoadableView, ReusableView {
         selectionStyle = .none
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        selectedCellSwitch.setOn(selected, animated: animated)
-    }
-
-    func setupCell(title: String, createTime: String) {
+    func setupCell(title: String, createTime: String, isSelected: Bool) {
         self.titleLabel.text = title
         self.createTimeLabel.text = createTime
+        self.selectedCellSwitch.isOn = isSelected
     }
     
 }
