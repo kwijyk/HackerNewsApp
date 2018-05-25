@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//2018-05-25T06:11:32.000Z
 
 enum DateFormat: String {
     case fullDate = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

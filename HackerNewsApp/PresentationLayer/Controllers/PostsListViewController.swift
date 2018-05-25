@@ -11,7 +11,8 @@ import UIKit
 class PostsListViewController: UIViewController {
 
     
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var newsItems: [NewsInfo] = [] {
         didSet {
@@ -38,6 +39,7 @@ class PostsListViewController: UIViewController {
         title = numberOfSelections
         setupTableView()
         fetchNewsData()
+        activityIndicator.startAnimating()
     }
     
     // MARK: - Private methods
@@ -50,8 +52,9 @@ class PostsListViewController: UIViewController {
     
     // MARK: - Data
     private func fetchNewsData() {
-        DataManager.instance.fentchNewsPosts(page: pageCounter) { [weak self] news in
+        DataManager.instance.fentchNewsPosts(page: pageCounter) { [weak self] news, error in
             guard let unwSelf = self else { return }
+            unwSelf.activityIndicator.stopAnimating()
             unwSelf.newsItems.append(contentsOf: news)
             if !news.isEmpty {
                unwSelf.pageCounter += 1

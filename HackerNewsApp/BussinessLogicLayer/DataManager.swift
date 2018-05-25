@@ -13,24 +13,35 @@ final class DataManager {
     static let instance = DataManager()
     private init() { }
     
-    func fentchNewsPosts(by tags: String = "story", page: Int, completionHandler: @escaping ([NewsInfo]) -> Void) {
+//    func fentchNewsPosts(by tags: String = "story", page: Int, completionHandler: @escaping ([NewsInfo]) -> Void) {
+//        let endpoint = NewsEndpoint.searchByDate(tags: tags, page: page)
+//        NetworkService().request(endpoint: endpoint) { networkResponse in
+//
+//            switch networkResponse {
+//            case .success(let value):
+//                let jsonObj = JSON(value)
+//                guard let jsonDictionary = jsonObj.dictionary, let jsonArray = jsonDictionary["hits"]?.array else { return }
+//                var newsInfoArray = [NewsInfo]()
+//                for objNewsInfo in jsonArray {
+//                    guard let category = NewsInfo(json: objNewsInfo) else { continue }
+//                    newsInfoArray.append(category)
+//                }
+//                DispatchQueue.main.async {
+//                    completionHandler(newsInfoArray)
+//                }
+//            case.failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
+    
+    
+    func fentchNewsPosts(by tags: String = "story", page: Int, completionHandler: @escaping ([NewsInfo], Error?) -> Void) {
         let endpoint = NewsEndpoint.searchByDate(tags: tags, page: page)
         NetworkService().request(endpoint: endpoint) { networkResponse in
-
-            switch networkResponse {
-            case .success(let value):
-                let jsonObj = JSON(value)
-                guard let jsonDictionary = jsonObj.dictionary, let jsonArray = jsonDictionary["hits"]?.array else { return }
-                var newsInfoArray = [NewsInfo]()
-                for objNewsInfo in jsonArray {
-                    guard let category = NewsInfo(json: objNewsInfo) else { continue }
-                    newsInfoArray.append(category)
-                }
-                DispatchQueue.main.async {
-                    completionHandler(newsInfoArray)
-                }
-            case.failure(let error):
-                print(error)
+            let parsedResponse = Parser.parseNewsInfo(networkResponse)
+            DispatchQueue.main.async {
+                completionHandler(parsedResponse.value ?? [], parsedResponse.error)
             }
         }
     }

@@ -26,10 +26,16 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="fMU-mY-AM7"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GZT-Wy-VTi">
+                                <rect key="frame" x="169.5" y="315" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.1215686275" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="bOH-cg-rMq" secondAttribute="bottom" id="7sc-zY-nal"/>
+                            <constraint firstItem="GZT-Wy-VTi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NhH-Yb-rMI"/>
+                            <constraint firstItem="GZT-Wy-VTi" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="QGq-2E-oJM"/>
                             <constraint firstAttribute="trailing" secondItem="bOH-cg-rMq" secondAttribute="trailing" id="VoY-a0-x4c"/>
                             <constraint firstItem="bOH-cg-rMq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="n3V-83-BVn"/>
                             <constraint firstItem="bOH-cg-rMq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qKu-vH-OcR"/>
@@ -38,6 +44,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="QFg-dX-QIH"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="GZT-Wy-VTi" id="3KY-fD-JNR"/>
                         <outlet property="tableView" destination="bOH-cg-rMq" id="uOo-Tc-rhB"/>
                     </connections>
                 </viewController>
@@ -61,7 +68,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7w4-0P-YB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="976.5" y="777.5"/>
+            <point key="canvasLocation" x="577" y="777"/>
         </scene>
     </scenes>
 </document>
